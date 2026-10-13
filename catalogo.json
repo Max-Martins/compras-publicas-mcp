@@ -1,0 +1,2359 @@
+{
+ "tools": [
+  {
+   "name": "compras_buscar_materiais",
+   "description": "Pesquisar CATMAT por descricaoItem ou código. Não presume equivalência técnica.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-material/4_consultarItemMaterial",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "codigoItem",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codigoGrupo",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codigoClasse",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codigoPdm",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "descricaoItem",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "statusItem",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "bps",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "codigo_ncm",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "codigoItem": {
+      "type": "integer",
+      "description": "Código CATMAT do item."
+     },
+     "codigoGrupo": {
+      "type": "integer",
+      "description": "Código do grupo do CATMAT."
+     },
+     "codigoClasse": {
+      "type": "integer",
+      "description": "Código da classe do CATMAT."
+     },
+     "codigoPdm": {
+      "type": "integer",
+      "description": "Código do PDM (padrão descritivo de material) do CATMAT."
+     },
+     "descricaoItem": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Texto da descrição do item."
+     },
+     "statusItem": {
+      "type": "boolean",
+      "description": "true para itens ativos."
+     },
+     "bps": {
+      "type": "boolean",
+      "description": "bps"
+     },
+     "codigo_ncm": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "codigo_ncm"
+     }
+    },
+    "required": [],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_precos_material",
+   "description": "Pesquisar preços por código CATMAT ou PDM, período e local. Compare unidade, quantidade, data e especificação antes de calcular referências.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-pesquisa-preco/1_consultarMaterial",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "tipo",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "codigoItemCatalogo",
+       "codigoPdm"
+      ],
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigo",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoUasg",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "estado",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoMunicipio",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "dataResultado",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "codigoClasse",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "poder",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "esfera",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "idCompra",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "dataCompraInicio",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataCompraFim",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "tipo": {
+      "type": "string",
+      "enum": [
+       "codigoItemCatalogo",
+       "codigoPdm"
+      ],
+      "maxLength": 250,
+      "description": "Tipo do código informado em \"codigo\"."
+     },
+     "codigo": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código a consultar, conforme o campo \"tipo\"."
+     },
+     "codigoUasg": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código UASG da unidade compradora."
+     },
+     "estado": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Sigla da UF, ex.: SP."
+     },
+     "codigoMunicipio": {
+      "type": "integer",
+      "description": "Código IBGE do município (7 dígitos)."
+     },
+     "dataResultado": {
+      "type": "boolean",
+      "description": "true para trazer apenas compras com resultado."
+     },
+     "codigoClasse": {
+      "type": "integer",
+      "description": "Código da classe do CATMAT."
+     },
+     "poder": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "poder"
+     },
+     "esfera": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "esfera"
+     },
+     "idCompra": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "idCompra"
+     },
+     "dataCompraInicio": {
+      "type": "string",
+      "description": "Data de compra início (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataCompraFim": {
+      "type": "string",
+      "description": "Data de compra fim (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    "required": [
+     "tipo",
+     "codigo"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_precos_detalhados",
+   "description": "Detalhar preços de um código CATMAT.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-pesquisa-preco/2_consultarMaterialDetalhe",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "codigoItemCatalogo",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "dataCompraInicio",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataCompraFim",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "codigoItemCatalogo": {
+      "type": "integer",
+      "description": "Código CATMAT do item."
+     },
+     "dataCompraInicio": {
+      "type": "string",
+      "description": "Data de compra início (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataCompraFim": {
+      "type": "string",
+      "description": "Data de compra fim (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    "required": [
+     "codigoItemCatalogo"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_buscar_contratacoes",
+   "description": "Consultar contratações por período de publicação e modalidade.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-contratacoes/1_consultarContratacoes_PNCP_14133",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "unidadeOrgaoCodigoUnidade",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoOrgao",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "orgaoEntidadeCnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "dataPublicacaoPncpInicial",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataPublicacaoPncpFinal",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "codigoModalidade",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "integer",
+      "description": "Código próprio do Compras.gov.br; não é o código PNCP. Não reutilize codigoModalidadeContratacao. Exemplo validado: 6 = Dispensa no Compras.gov.br."
+     }
+    },
+    {
+     "name": "unidadeOrgaoCodigoIbge",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "unidadeOrgaoUfSigla",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "dataAualizacaoPncp",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "amparoLegalCodigoPncp",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "contratacaoExcluida",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "unidadeOrgaoCodigoUnidade": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "unidadeOrgaoCodigoUnidade"
+     },
+     "codigoOrgao": {
+      "type": "integer",
+      "description": "codigoOrgao"
+     },
+     "orgaoEntidadeCnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "dataPublicacaoPncpInicial": {
+      "type": "string",
+      "description": "Data de publicação PNCP inicial (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataPublicacaoPncpFinal": {
+      "type": "string",
+      "description": "Data de publicação PNCP final (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "codigoModalidade": {
+      "type": "integer",
+      "description": "Código da modalidade (use pncp_modalidades). Ex.: 6 = Pregão Eletrônico."
+     },
+     "unidadeOrgaoCodigoIbge": {
+      "type": "integer",
+      "description": "unidadeOrgaoCodigoIbge"
+     },
+     "unidadeOrgaoUfSigla": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Sigla da UF do órgão, ex.: SP."
+     },
+     "dataAualizacaoPncp": {
+      "type": "string",
+      "description": "Data de atualização PNCP (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "amparoLegalCodigoPncp": {
+      "type": "integer",
+      "description": "amparoLegalCodigoPncp"
+     },
+     "contratacaoExcluida": {
+      "type": "boolean",
+      "description": "contratacaoExcluida"
+     }
+    },
+    "required": [
+     "dataPublicacaoPncpInicial",
+     "dataPublicacaoPncpFinal",
+     "codigoModalidade"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_detalhar_contratacao",
+   "description": "Detalhar contratação por idCompra ou numeroControlePNCPCompra.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-contratacoes/1.1_consultarContratacoes_PNCP_14133_Id",
+   "params": [
+    {
+     "name": "tipo",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "idCompra",
+       "numeroControlePNCPCompra"
+      ],
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigo",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "dataAtualizacaoPncp",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "tipo": {
+      "type": "string",
+      "enum": [
+       "idCompra",
+       "numeroControlePNCPCompra"
+      ],
+      "maxLength": 250,
+      "description": "Tipo do código informado em \"codigo\"."
+     },
+     "codigo": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código a consultar, conforme o campo \"tipo\"."
+     },
+     "dataAtualizacaoPncp": {
+      "type": "string",
+      "description": "Data de atualização PNCP (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    "required": [
+     "tipo",
+     "codigo"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_buscar_itens",
+   "description": "Buscar itens por período de inclusão, CATMAT, fornecedor ou órgão.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-contratacoes/2_consultarItensContratacoes_PNCP_14133",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "unidadeOrgaoCodigoUnidade",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "orgaoEntidadeCnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "situacaoCompraItem",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "materialOuServico",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoClasse",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codigoGrupo",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codItemCatalogo",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "temResultado",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "codFornecedor",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "dataInclusaoPncpInicial",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataInclusaoPncpFinal",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataAtualizacaoPncp",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Data AAAA-MM-DD"
+     }
+    },
+    {
+     "name": "bps",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "margemPreferenciaNormal",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "codigoNCM",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoPdm",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "unidadeOrgaoCodigoUnidade": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "unidadeOrgaoCodigoUnidade"
+     },
+     "orgaoEntidadeCnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "situacaoCompraItem": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "situacaoCompraItem"
+     },
+     "materialOuServico": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "M para material, S para serviço."
+     },
+     "codigoClasse": {
+      "type": "integer",
+      "description": "Código da classe do CATMAT."
+     },
+     "codigoGrupo": {
+      "type": "integer",
+      "description": "Código do grupo do CATMAT."
+     },
+     "codItemCatalogo": {
+      "type": "integer",
+      "description": "Código CATMAT do item."
+     },
+     "temResultado": {
+      "type": "boolean",
+      "description": "temResultado"
+     },
+     "codFornecedor": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "codFornecedor"
+     },
+     "dataInclusaoPncpInicial": {
+      "type": "string",
+      "description": "Data de inclusão PNCP inicial (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataInclusaoPncpFinal": {
+      "type": "string",
+      "description": "Data de inclusão PNCP final (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataAtualizacaoPncp": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Data de atualização PNCP (AAAA-MM-DD)."
+     },
+     "bps": {
+      "type": "boolean",
+      "description": "bps"
+     },
+     "margemPreferenciaNormal": {
+      "type": "boolean",
+      "description": "margemPreferenciaNormal"
+     },
+     "codigoNCM": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "codigoNCM"
+     },
+     "codigoPdm": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código do PDM (padrão descritivo de material) do CATMAT."
+     }
+    },
+    "required": [
+     "dataInclusaoPncpInicial",
+     "dataInclusaoPncpFinal"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "compras_buscar_resultados",
+   "description": "Buscar resultados por período, fornecedor ou órgão.",
+   "source": "compras",
+   "base": "https://dadosabertos.compras.gov.br",
+   "doc": "https://dadosabertos.compras.gov.br/v3/api-docs",
+   "route": "/modulo-contratacoes/3_consultarResultadoItensContratacoes_PNCP_14133",
+   "params": [
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50
+     }
+    },
+    {
+     "name": "unidadeOrgaoCodigoUnidade",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "orgaoEntidadeCnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "niFornecedor",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoPais",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "porteFornecedorId",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "naturezaJuridicaId",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "situacaoCompraItemResultadoId",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "valorUnitarioHomologadoInicial",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "valorUnitarioHomologadoFinal",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "valorTotalHomologadoInicial",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "valorTotalHomologadoFinal",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "dataResultadoPncpInicial",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "dataResultadoPncpFinal",
+     "in": "query",
+     "description": "YYYY-MM-DD",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "description": "Data AAAA-MM-DD",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     }
+    },
+    {
+     "name": "aplicacaoMargemPreferencia",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "aplicacaoBeneficioMeepp",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "aplicacaoCriterioDesempate",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "pagina": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "type": "integer",
+      "default": 10,
+      "maximum": 50,
+      "description": "Registros por página."
+     },
+     "unidadeOrgaoCodigoUnidade": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "unidadeOrgaoCodigoUnidade"
+     },
+     "orgaoEntidadeCnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "niFornecedor": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ ou CPF do fornecedor, somente dígitos."
+     },
+     "codigoPais": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "codigoPais"
+     },
+     "porteFornecedorId": {
+      "type": "integer",
+      "description": "porteFornecedorId"
+     },
+     "naturezaJuridicaId": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "naturezaJuridicaId"
+     },
+     "situacaoCompraItemResultadoId": {
+      "type": "integer",
+      "description": "situacaoCompraItemResultadoId"
+     },
+     "valorUnitarioHomologadoInicial": {
+      "type": "number",
+      "description": "valorUnitarioHomologadoInicial"
+     },
+     "valorUnitarioHomologadoFinal": {
+      "type": "number",
+      "description": "valorUnitarioHomologadoFinal"
+     },
+     "valorTotalHomologadoInicial": {
+      "type": "number",
+      "description": "valorTotalHomologadoInicial"
+     },
+     "valorTotalHomologadoFinal": {
+      "type": "number",
+      "description": "valorTotalHomologadoFinal"
+     },
+     "dataResultadoPncpInicial": {
+      "type": "string",
+      "description": "Data de resultado PNCP inicial (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "dataResultadoPncpFinal": {
+      "type": "string",
+      "description": "Data de resultado PNCP final (AAAA-MM-DD).",
+      "maxLength": 250,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "aplicacaoMargemPreferencia": {
+      "type": "boolean",
+      "description": "aplicacaoMargemPreferencia"
+     },
+     "aplicacaoBeneficioMeepp": {
+      "type": "boolean",
+      "description": "aplicacaoBeneficioMeepp"
+     },
+     "aplicacaoCriterioDesempate": {
+      "type": "boolean",
+      "description": "aplicacaoCriterioDesempate"
+     }
+    },
+    "required": [
+     "dataResultadoPncpInicial",
+     "dataResultadoPncpFinal"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_publicacoes",
+   "description": "Consultar publicações por período, modalidade, UF ou órgão. Datas AAAAMMDD. Sem busca textual nativa: examine objetos nas páginas e declare cobertura.",
+   "source": "pncp-consulta",
+   "base": "https://pncp.gov.br/api/consulta",
+   "doc": "https://pncp.gov.br/api/consulta/v3/api-docs",
+   "route": "/v1/contratacoes/publicacao",
+   "params": [
+    {
+     "name": "dataInicial",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "dataFinal",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "codigoModalidadeContratacao",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "codigoModoDisputa",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "uf",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoMunicipioIbge",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "cnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoUnidadeAdministrativa",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "idUsuario",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "dataInicial": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data inicial no formato AAAAMMDD."
+     },
+     "dataFinal": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data final no formato AAAAMMDD."
+     },
+     "codigoModalidadeContratacao": {
+      "type": "integer",
+      "description": "Código da modalidade (use pncp_modalidades). Ex.: 6 = Pregão Eletrônico."
+     },
+     "codigoModoDisputa": {
+      "type": "integer",
+      "description": "Código do modo de disputa."
+     },
+     "uf": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Sigla da UF, ex.: SP."
+     },
+     "codigoMunicipioIbge": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código IBGE do município (7 dígitos)."
+     },
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "codigoUnidadeAdministrativa": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código da unidade administrativa do órgão."
+     },
+     "idUsuario": {
+      "type": "integer",
+      "description": "idUsuario"
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "dataInicial",
+     "dataFinal",
+     "codigoModalidadeContratacao"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_propostas_abertas",
+   "description": "Consultar contratações com recebimento de propostas aberto até dataFinal AAAAMMDD. Situação publicada não é acompanhamento ao vivo de pregão.",
+   "source": "pncp-consulta",
+   "base": "https://pncp.gov.br/api/consulta",
+   "doc": "https://pncp.gov.br/api/consulta/v3/api-docs",
+   "route": "/v1/contratacoes/proposta",
+   "params": [
+    {
+     "name": "dataFinal",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "codigoModalidadeContratacao",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "uf",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoMunicipioIbge",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "cnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoUnidadeAdministrativa",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maxLength": 30,
+      "minLength": 1,
+      "type": "string"
+     }
+    },
+    {
+     "name": "idUsuario",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "dataFinal": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data final no formato AAAAMMDD."
+     },
+     "codigoModalidadeContratacao": {
+      "type": "integer",
+      "description": "Código da modalidade (use pncp_modalidades). Ex.: 6 = Pregão Eletrônico."
+     },
+     "uf": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Sigla da UF, ex.: SP."
+     },
+     "codigoMunicipioIbge": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código IBGE do município (7 dígitos)."
+     },
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "codigoUnidadeAdministrativa": {
+      "maxLength": 30,
+      "minLength": 1,
+      "type": "string",
+      "description": "Código da unidade administrativa do órgão."
+     },
+     "idUsuario": {
+      "type": "integer",
+      "description": "idUsuario"
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "dataFinal"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_detalhar_contratacao",
+   "description": "Detalhar contratação por CNPJ do órgão, ano e sequencial.",
+   "source": "pncp-consulta",
+   "base": "https://pncp.gov.br/api/consulta",
+   "doc": "https://pncp.gov.br/api/consulta/v3/api-docs",
+   "route": "/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}",
+   "params": [
+    {
+     "name": "cnpj",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "ano",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "sequencial",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "ano": {
+      "type": "integer",
+      "description": "Ano da compra, ex.: 2026."
+     },
+     "sequencial": {
+      "minimum": 1,
+      "type": "integer",
+      "description": "Sequencial da compra no PNCP."
+     }
+    },
+    "required": [
+     "cnpj",
+     "ano",
+     "sequencial"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_contratos",
+   "description": "Consultar contratos por período de publicação. Datas AAAAMMDD.",
+   "source": "pncp-consulta",
+   "base": "https://pncp.gov.br/api/consulta",
+   "doc": "https://pncp.gov.br/api/consulta/v3/api-docs",
+   "route": "/v1/contratos",
+   "params": [
+    {
+     "name": "dataInicial",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "dataFinal",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "cnpjOrgao",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoUnidadeAdministrativa",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "usuarioId",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "dataInicial": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data inicial no formato AAAAMMDD."
+     },
+     "dataFinal": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data final no formato AAAAMMDD."
+     },
+     "cnpjOrgao": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "codigoUnidadeAdministrativa": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Código da unidade administrativa do órgão."
+     },
+     "usuarioId": {
+      "type": "integer",
+      "description": "usuarioId"
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "dataInicial",
+     "dataFinal"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_atas",
+   "description": "Consultar atas por período de vigência. Datas AAAAMMDD.",
+   "source": "pncp-consulta",
+   "base": "https://pncp.gov.br/api/consulta",
+   "doc": "https://pncp.gov.br/api/consulta/v3/api-docs",
+   "route": "/v1/atas",
+   "params": [
+    {
+     "name": "dataInicial",
+     "in": "query",
+     "description": "Formato: yyyyMMdd",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "dataFinal",
+     "in": "query",
+     "description": "Formato: yyyyMMdd",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data AAAAMMDD"
+     }
+    },
+    {
+     "name": "idUsuario",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "cnpj",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "codigoUnidadeAdministrativa",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maxLength": 30,
+      "minLength": 1,
+      "type": "string"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "dataInicial": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data inicial no formato AAAAMMDD."
+     },
+     "dataFinal": {
+      "type": "string",
+      "maxLength": 250,
+      "pattern": "^\\d{8}$",
+      "description": "Data final no formato AAAAMMDD."
+     },
+     "idUsuario": {
+      "type": "integer",
+      "description": "idUsuario"
+     },
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "codigoUnidadeAdministrativa": {
+      "maxLength": 30,
+      "minLength": 1,
+      "type": "string",
+      "description": "Código da unidade administrativa do órgão."
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "maximum": 50,
+      "minimum": 10,
+      "type": "integer",
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "dataInicial",
+     "dataFinal"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_itens",
+   "description": "Consultar itens e especificações de uma contratação.",
+   "source": "pncp",
+   "base": "https://pncp.gov.br/api/pncp",
+   "doc": "https://pncp.gov.br/api/pncp/v3/api-docs",
+   "route": "/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens",
+   "params": [
+    {
+     "name": "cnpj",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "ano",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "sequencial",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 50,
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "ano": {
+      "type": "integer",
+      "description": "Ano da compra, ex.: 2026."
+     },
+     "sequencial": {
+      "type": "integer",
+      "description": "Sequencial da compra no PNCP."
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 50,
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "cnpj",
+     "ano",
+     "sequencial"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_resultados_item",
+   "description": "Consultar resultados publicados de um item.",
+   "source": "pncp",
+   "base": "https://pncp.gov.br/api/pncp",
+   "doc": "https://pncp.gov.br/api/pncp/v3/api-docs",
+   "route": "/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens/{numeroItem}/resultados",
+   "params": [
+    {
+     "name": "cnpj",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "ano",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "sequencial",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "numeroItem",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "ano": {
+      "type": "integer",
+      "description": "Ano da compra, ex.: 2026."
+     },
+     "sequencial": {
+      "type": "integer",
+      "description": "Sequencial da compra no PNCP."
+     },
+     "numeroItem": {
+      "type": "integer",
+      "description": "Número do item na compra."
+     }
+    },
+    "required": [
+     "cnpj",
+     "ano",
+     "sequencial",
+     "numeroItem"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_documentos",
+   "description": "Listar documentos e links do edital. Não extrai o conteúdo dos arquivos. Leia edital e anexos antes de concluir exigências ou prazos.",
+   "source": "pncp",
+   "base": "https://pncp.gov.br/api/pncp",
+   "doc": "https://pncp.gov.br/api/pncp/v3/api-docs",
+   "route": "/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/arquivos",
+   "params": [
+    {
+     "name": "cnpj",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "string",
+      "maxLength": 250
+     }
+    },
+    {
+     "name": "ano",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "sequencial",
+     "in": "path",
+     "required": true,
+     "schema": {
+      "minimum": 1,
+      "type": "integer"
+     }
+    },
+    {
+     "name": "pagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1
+     }
+    },
+    {
+     "name": "tamanhoPagina",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 50,
+      "default": 10
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "cnpj": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "CNPJ do órgão, somente dígitos (14)."
+     },
+     "ano": {
+      "type": "integer",
+      "description": "Ano da compra, ex.: 2026."
+     },
+     "sequencial": {
+      "minimum": 1,
+      "type": "integer",
+      "description": "Sequencial da compra no PNCP."
+     },
+     "pagina": {
+      "minimum": 1,
+      "type": "integer",
+      "default": 1,
+      "description": "Número da página (começa em 1)."
+     },
+     "tamanhoPagina": {
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 50,
+      "default": 10,
+      "description": "Registros por página."
+     }
+    },
+    "required": [
+     "cnpj",
+     "ano",
+     "sequencial"
+    ],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  },
+  {
+   "name": "pncp_modalidades",
+   "description": "Consultar códigos e nomes oficiais de modalidades.",
+   "source": "pncp",
+   "base": "https://pncp.gov.br/api/pncp",
+   "doc": "https://pncp.gov.br/api/pncp/v3/api-docs",
+   "route": "/v1/modalidades",
+   "params": [
+    {
+     "name": "statusAtivo",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "irp",
+     "in": "query",
+     "required": false,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ],
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "statusAtivo": {
+      "type": "boolean",
+      "description": "true para listar apenas modalidades ativas."
+     },
+     "irp": {
+      "type": "boolean",
+      "description": "irp"
+     }
+    },
+    "required": [],
+    "additionalProperties": false
+   },
+   "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+   }
+  }
+ ],
+ "versao": "1.0.0"
+}

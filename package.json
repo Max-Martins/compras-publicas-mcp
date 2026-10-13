@@ -1,0 +1,15 @@
+{
+  "name": "compras-publicas-mcp",
+  "version": "1.0.0",
+  "description": "Servidor MCP somente leitura para consultar o PNCP e o Compras.gov.br com IA (Claude, ChatGPT/Codex, Cursor, VS Code).",
+  "type": "module",
+  "main": "server.mjs",
+  "bin": { "compras-publicas-mcp": "server.mjs" },
+  "files": ["server.mjs", "catalogo.json"],
+  "scripts": { "start": "node server.mjs", "test": "node --test" },
+  "engines": { "node": ">=22" },
+  "keywords": ["mcp", "pncp", "compras-publicas", "licitacoes", "lei-14133", "catmat", "model-context-protocol"],
+  "author": "Max Marinho",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/Max-Martins/compras-publicas-mcp" }
+}

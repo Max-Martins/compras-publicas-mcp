@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "compras-publicas": {
+      "command": "node",
+      "args": ["C:\\Users\\voce\\compras-publicas-mcp\\server.mjs"]
+    }
+  }
+}

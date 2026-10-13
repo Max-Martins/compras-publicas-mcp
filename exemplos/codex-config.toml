@@ -1,0 +1,3 @@
+[mcp_servers.compras-publicas]
+command = "node"
+args = ["/caminho/para/compras-publicas-mcp/server.mjs"]
